@@ -167,7 +167,7 @@ class CpTestCase(unittest.TestCase):
 
         """
         if os.environ.get("DEBUG"):
-            print "not removing", self.test_dir
+            print("not removing", self.test_dir)
         else:
             shutil.rmtree(self.test_dir)
 
@@ -323,7 +323,7 @@ class MvTestCase(unittest.TestCase):
 
         """
         if os.environ.get("DEBUG"):
-            print "not removing", self.test_dir
+            print("not removing", self.test_dir)
         else:
             shutil.rmtree(self.test_dir)
 

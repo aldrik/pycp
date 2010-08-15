@@ -63,7 +63,7 @@ def debug(message):
 
     """
     if os.environ.get("DEBUG"):
-        print message
+        print(message)
 
 def samefile(src, dest):
     """Check if two files are the same in a
@@ -184,7 +184,7 @@ def transfer_file(options, src, dest, callback):
             done += len(data)
             callback(done, total)
             dest_file.write(data)
-    except IOError, err:
+    except IOError as err:
         mess  = "Problem when transferring %s to %s\n" % (src, dest)
         mess += "Error was: %s" % err
         raise TransferError(mess)
@@ -194,15 +194,15 @@ def transfer_file(options, src, dest, callback):
 
     try:
         post_transfer(options, src, dest)
-    except OSError, err:
-        print "Warning: failed to finalize tranfer of %s: %s" % (dest, err)
+    except OSError as err:
+        print("Warning: failed to finalize tranfer of %s: %s" % (dest, err))
 
     if options.move:
         try:
             debug("removing %s" % src)
             os.remove(src)
         except OSError:
-            print "Warning: could not remove %s" % src
+            print("Warning: could not remove %s" % src)
 
 
 def post_transfer(options, src, dest):
@@ -249,7 +249,7 @@ class FileTransferManager():
             if should_skip:
                 return
 
-        print pprint_transfer(self.src, self.dest)
+        print(pprint_transfer(self.src, self.dest))
         self.pbar = ProgressBar(
           widgets = [
             Percentage()                          ,
@@ -262,7 +262,7 @@ class FileTransferManager():
         self.pbar.start()
         try:
             transfer_file(self.options, self.src, self.dest, self.callback)
-        except TransferError, err:
+        except TransferError as err:
             if self.options.ignore_errors:
                 # remove dest file
                 global ERRORS
@@ -281,7 +281,7 @@ class FileTransferManager():
         """
         # Safe: always skip
         if self.options.safe:
-            print "Warning: skipping", self.dest
+            print("Warning: skipping", self.dest)
             return True
 
         # Not safe and not interactive => overwrite
@@ -289,9 +289,9 @@ class FileTransferManager():
             return False
 
         # Interactive
-        print "File: '%s' already exists" % self.dest
-        print "Overwrite?"
-        user_input = raw_input()
+        print("File: '%s' already exists" % self.dest)
+        print("Overwrite?")
+        user_input = input()
         if (user_input == "y"):
             return False
         else:
@@ -430,15 +430,15 @@ def main():
 
     try:
         recursive_file_transfer(options, sources, destination)
-    except TransferError, err:
+    except TransferError as err:
         die(err)
-    except KeyboardInterrupt, err:
+    except KeyboardInterrupt as err:
         die("Interrputed by user")
 
     global ERRORS
     if ERRORS:
-        print "Error occurred when tranferring the following files:"
-        print "\n".join(ERRORS)
+        print("Error occurred when tranferring the following files:")
+        print("\n".join(ERRORS))
 
 
 if __name__ == "__main__":

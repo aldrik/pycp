@@ -24,8 +24,8 @@ def gen_man_pages():
                 shell = True)
             out = p.communicate()[0]
             man_pages[f] = out
-        except OSError, e:
-            print "help2man failed. Error was", e
+        except OSError as e:
+            print("help2man failed. Error was", e)
             return
 
     if not os.path.exists("doc"):
