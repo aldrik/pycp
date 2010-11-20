@@ -7,8 +7,8 @@ pkgdesc="cp and mv with a progressbar"
 url="http://github.com/yannicklm/pycp"
 arch=('any')
 license=('MIT')
-depends=('python2')
-makedepends=('git' 'python2' 'help2man')
+depends=('python')
+makedepends=('git' 'python' 'help2man')
 replaces=('pycp')
 
 _gitroot="git://github.com/yannicklm/pycp.git"
@@ -31,13 +31,13 @@ build() {
   rm -rf "$srcdir/$_gitname-build"
   git clone $_gitname $_gitname-build
   cd ${srcdir}/$_gitname-build
-  python2 setup.py build
+  python setup.py build
 
 }
 
 package() {
   cd ${srcdir}/$_gitname-build
-  python2 setup.py install --root=$pkgdir/ --optimize=1
+  python setup.py install --root=$pkgdir/ --optimize=1
   mkdir -p $pkgdir/usr/share/licenses/pycp
   install COPYING $pkgdir/usr/share/licenses/pycp/COPYING
 }
